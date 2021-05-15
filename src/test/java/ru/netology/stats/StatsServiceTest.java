@@ -1,54 +1,51 @@
 package ru.netology.stats;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class StatsServiceTest {
 
-    @Test
-    void sumSalesTest() {
-        StatsService service = new StatsService();
-        int[] sales = {8, 15, 15, 13, 17, 20, 19, 20, 7, 14, 14, 18};
-        int actual = service.sumSales(sales);
-        int expected = 180;
-        assertEquals(expected, actual);
+    int[] sales = {8, 15, 15, 13, 17, 20, 19, 20, 7, 14, 14, 18};
+    StatsService service = new StatsService();
+
+    @ParameterizedTest
+    @MethodSource("sumSalesTestArguments")
+    void sumSalesTest(int expected, int[] actual) {
+        assertEquals(180, service.sumSales(sales));
+    }
+
+    static Stream<Arguments> sumSalesTestArguments() {
+        int[] sales1 = {8, 15, 15, 13, 17, 20, 19, 20, 7, 14, 14, 18};
+        int[] sales2 = {8, 15, 15, 13, 17, 20};
+        return Stream.of(Arguments.of(180, sales1),
+                        Arguments.of(85, sales2)
+        );
     }
 
     @Test
     void averageSumSalesTest() {
-        StatsService service = new StatsService();
-        int[] sales = {8, 15, 15, 13, 17, 20, 19, 20, 7, 14, 14, 18};
-        int actual = service.averageSumSales(sales);
-        int expected = 13;
-        assertEquals(expected, actual);
+        assertEquals(13, service.averageSumSales(sales));
     }
 
     @Test
     void maxSalesTest() {
-        StatsService service = new StatsService();
-        int[] sales = {8, 15, 15, 13, 17, 20, 19, 20, 7, 14, 14, 18};
-        int actual = service.maxSales(sales);
-        int expected = 8;
-        assertEquals(expected, actual);
+        assertEquals(8, service.maxSales(sales));
     }
 
     @Test
     void minSalesTest() {
-        StatsService service = new StatsService();
-        int[] sales = {8, 15, 15, 13, 17, 20, 19, 20, 7, 14, 14, 18};
-        int actual = service.minSales(sales);
-        int expected = 9;
-        assertEquals(expected, actual);
+        assertEquals(9, service.minSales(sales));
     }
 
     @Test
     void salesLessAverageTest() {
-        StatsService service = new StatsService();
-        int[] sales = {8, 15, 15, 13, 17, 20, 19, 20, 7, 14, 14, 18};
-        int actual = service.salesLessAverage(sales);
-        int expected = 2;
-        assertEquals(expected, actual);
+        assertEquals(2, service.salesLessAverage(sales));
     }
 
     @Test
