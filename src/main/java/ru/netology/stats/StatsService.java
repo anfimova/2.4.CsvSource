@@ -11,7 +11,7 @@ public class StatsService {
     }
 
     public int averageSumSales(int[] sales) {
-        int countMonth = sales.length + 1;
+        int countMonth = sales.length;
         int averageSumSales = sumSales(sales) / countMonth;
         return averageSumSales;
     }
